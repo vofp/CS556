@@ -73,11 +73,12 @@ void cornerHarris_demo( int, void* )
           {
             if( (int) dst_norm.at<float>(j,i) > thresh )
               {
-               circle( dst_norm_scaled, Point( i, j ), 5,  Scalar(0), 2, 8, 0 );
+               // circle( dst_norm_scaled, Point( i, j ), 5,  Scalar(0), 2, 8, 0 );
+               circle( src, Point( i, j ), 5,  Scalar(0,0,255), 2, 8, 0 );
               }
           }
      }
   /// Showing the result
   namedWindow( corners_window, WINDOW_AUTOSIZE );
-  imshow( corners_window, dst_norm_scaled );
+  imshow( corners_window, src );
 }
