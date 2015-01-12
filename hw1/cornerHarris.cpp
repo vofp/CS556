@@ -10,6 +10,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 using namespace cv;
 using namespace std;
@@ -18,6 +19,7 @@ using namespace std;
 Mat src, src_gray;
 int thresh = 200;
 int max_thresh = 255;
+char *out_file;
 
 const char* source_window = "Source image";
 const char* corners_window = "Corners detected";
@@ -32,11 +34,13 @@ int main( int, char** argv )
 {
   /// Load source image and convert it to gray
   src = imread( argv[1], 1 );
+  thresh = atoi(argv[2]);
+  out_file = argv[3];
   cvtColor( src, src_gray, COLOR_BGR2GRAY );
 
   /// Create a window and a trackbar
   namedWindow( source_window, WINDOW_AUTOSIZE );
-  createTrackbar( "Threshold: ", source_window, &thresh, max_thresh, cornerHarris_demo );
+  // createTrackbar( "Threshold: ", source_window, &thresh, max_thresh, cornerHarris_demo );
   imshow( source_window, src );
 
   cornerHarris_demo( 0, 0 );
@@ -81,4 +85,5 @@ void cornerHarris_demo( int, void* )
   /// Showing the result
   namedWindow( corners_window, WINDOW_AUTOSIZE );
   imshow( corners_window, src );
+  imwrite( out_file, src );
 }
